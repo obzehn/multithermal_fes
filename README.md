@@ -1,8 +1,8 @@
 # Multi-thermal and funnel corrections for free energy estimates
-This is a modification of the original Invernizzi's [FES_from_Reweighting](https://github.com/invemichele/opes/blob/master/postprocessing/FES_from_Reweighting.py) script to add funnel correction and multi-thermal reweighting. For an Opes Expanded introduction, please read the original work<sup>1</sup>.
+This is a modification of the original Invernizzi's [FES_from_Reweighting](https://github.com/invemichele/opes/blob/master/postprocessing/FES_from_Reweighting.py) script to add funnel correction and multi-thermal reweighting. For an Opes Expanded introduction, please read the original work[^1].
 
 The main additions are
-1. You can now re-weight Opes Expanded simulations in the case of multi-termal (multi-canonical) simulations[^1]
+1. You can now re-weight Opes Expanded simulations in the case of multi-termal (multi-canonical) simulations
 2. You can now correct the FES of a funnel-restrained simulation[^2]
 
 To re-weight for multi-thermal runs, two flags are needed
@@ -117,6 +117,12 @@ Again, check the information from the script
  using bias "opesX.bias" found at column 6
  using "ecv.ene" as potential energy for multiT reweighting found at column 5
 ```
+
+These are the free energy profiles compared from a "perfect" reference with OPES_META on both phi and psi at the reported thermostat temperature (black dashed lines), and the re-weighted energies for a single run with Opes Multi-thermal (OpesX, x points) and a Opes Multi-T + Opes_METAD run (continuous line).
+![fessesvsT](phi_fes_OpesX_comparison.png)
+
+And here the free energy differences at `phi=0` of the OpesX + Multi-T run re-weighted from 300K to 1000K at steps of 1K with 10 blocks to estimate the associated error (green area) plotted against the reference differences from the OPES_METAD runs at different Ts. 
+![deltaGvskbt](deltaG_vs_temp_kbt.png)
 
 [^1]: Invernizzi, M., Piaggi, P. M., & Parrinello, M. (2020). Unified approach to enhanced sampling. Physical Review X, 10(4), 041034. [DOI:10.1103/PhysRevX.10.041034](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.041034)
 
