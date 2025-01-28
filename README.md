@@ -135,6 +135,9 @@ These are the free energy profiles compared from a "perfect" reference with OPES
 And here the free energy differences at `phi=0` of the OpesX + Multi-T run re-weighted from 300K to 1000K at steps of 1K with 10 blocks to estimate the associated error (green area) plotted against the reference differences from the OPES_METAD runs at different Ts. Note that here the re-weighting on Multi-T or META_D+Multi-T is equivalent as the minima are properly sampled in all simulations. The additional bias from OPES_METAD (and the perfect CVs used...) helps in properly sampling the transition regions.
 ![deltaGvskbt](deltaG_vs_temp_kbt.png)
 
+Finally, there are the 2D free energy surfaces for all the simulations.
+![fes_phi_psi_biased_nothreshold.png](./fes_phi_psi_biased_nothreshold.png)
+
 [^1]: Invernizzi, M., Piaggi, P. M., & Parrinello, M. (2020). Unified approach to enhanced sampling. Physical Review X, 10(4), 041034. [DOI:10.1103/PhysRevX.10.041034](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.041034)
 
 [^2]: Rizzi, V., Bonati, L., Ansari, N., & Parrinello, M. (2021). The role of water in host-guest interaction. Nature Communications, 12(1), 93. [DOI:10.1038/s41467-020-20310-0](https://www.nature.com/articles/s41467-020-20310-0)
