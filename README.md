@@ -8,9 +8,20 @@ The main additions are
 To re-weight for multi-thermal runs, two flags are needed
 * **`--multiT`** The target temperature (in K)
 * **`--ene`** The potential energy of the system
+
+Formally, the new weights $w_k(\beta)$ are the following
+
+$$w_k(\beta)=\exp(-(\beta-\beta_0)U_k+\beta_0 V^{(k)}_{k-1})$$
+
+where $\beta=1/(k_B T)$ is calculated at the re-weighted targeted temperature $T$ (supplied with `--multiT`), $\beta_0=1/(k_B T_0)$ at the thermostat temperature $T_0$ (supplied with `--temp`), $U_k$ is the potential energy at step $k$ (supplied with `--ene`), and $V_{k-1}^{(k)}$ is the total bias applied at step $k$, which depends on the previous $k-1$ steps. For a simple OPES_EXPANDED run alone this is the bias applied by the multi-thermal CV, that is $V_{k-1}^{(k)}=V_{\text{multiT}}$ (supplied with `--bias`). If more than one bias at a time is applied then this takes the more general form of
+
+$$V_{k-1}^{(k)}=V_{\text{multiT}}+\sum V_{\text{other biases}}$$
+
+and as such ALL other biases have to be passed to the flag `--bias` to be properly summed.
+
 Remember to add the multi-thermal bias to the other biases you are applying, in case your naming is different from the standard `.bias` of PLUMED.
 
-To correct for funnel restraint, three flags are needed
+To correct for a funnel restraint, three flags are needed
 * **`--rfunnel`** the radius of the funnel in nm
 * **`--uat`** the value of the z CV above which the ligand is unbound
 * **`--bat`** the value of the z CV above which the ligand is bound
@@ -106,7 +117,7 @@ then the output will look something like this
  0.400000 -2.43291 2.09504 -4.2428 -4.2428 0 -40 -40 1 1 0
 [...]
 ```
-We can still re-weight for different temperature, but we have to consider *both* the bias added by OPES_METAD and the one added by OPES_EXPANDED. As such, you will have to pass both biases to the script, e.g.
+We can still re-weight for different temperatures, but we have to consider *both* the bias added by OPES_METAD and the one added by OPES_EXPANDED. As such, you will have to pass both biases to the script, e.g.
 ```
 python3 FES_from_Reweighting_multiT_funnel.py --colvar COLVAR --outfile fes_opesX_500K --sigma 0.06 --temp 300 --cv phi --bias opes.bias,opesX.bias --deltaFat 0.0 --multiT 500 --ene ecv.ene
 ```
@@ -118,7 +129,7 @@ Again, check the information from the script
  using "ecv.ene" as potential energy for multiT reweighting found at column 5
 ```
 
-These are the free energy profiles compared from a "perfect" reference with OPES_META on both phi and psi at the reported thermostat temperature (black dashed lines), and the re-weighted energies for a single run with Opes Multi-thermal (OpesX, x points) and a Opes Multi-T + Opes_METAD run (continuous line).
+These are the free energy profiles compared from a "perfect" reference with OPES_METAD on both phi and psi at the reported thermostat temperature (black dashed lines), and the re-weighted energies for a single run with Opes Multi-thermal (OpesX, x points) and a Opes Multi-T + Opes_METAD run (continuous line).
 ![fessesvsT](phi_fes_OpesX_comparison.png)
 
 And here the free energy differences at `phi=0` of the OpesX + Multi-T run re-weighted from 300K to 1000K at steps of 1K with 10 blocks to estimate the associated error (green area) plotted against the reference differences from the OPES_METAD runs at different Ts. 
