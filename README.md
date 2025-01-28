@@ -132,7 +132,7 @@ Again, check the information from the script
 These are the free energy profiles compared from a "perfect" reference with OPES_METAD on both phi and psi at the reported thermostat temperature (black dashed lines), and the re-weighted energies for a single run with Opes Multi-thermal (OpesX, x points) and a Opes Multi-T + Opes_METAD run (continuous line).
 ![fessesvsT](phi_fes_OpesX_comparison.png)
 
-And here the free energy differences at `phi=0` of the OpesX + Multi-T run re-weighted from 300K to 1000K at steps of 1K with 10 blocks to estimate the associated error (green area) plotted against the reference differences from the OPES_METAD runs at different Ts. 
+And here the free energy differences at `phi=0` of the OpesX + Multi-T run re-weighted from 300K to 1000K at steps of 1K with 10 blocks to estimate the associated error (green area) plotted against the reference differences from the OPES_METAD runs at different Ts. Note that here the re-weighting on Multi-T or META_D+Multi-T is equivalent as the minima are properly sampled in all simulations. The additional bias from OPES_METAD (and the perfect CVs used...) helps in properly sampling the transition regions.
 ![deltaGvskbt](deltaG_vs_temp_kbt.png)
 
 [^1]: Invernizzi, M., Piaggi, P. M., & Parrinello, M. (2020). Unified approach to enhanced sampling. Physical Review X, 10(4), 041034. [DOI:10.1103/PhysRevX.10.041034](https://journals.aps.org/prx/abstract/10.1103/PhysRevX.10.041034)
