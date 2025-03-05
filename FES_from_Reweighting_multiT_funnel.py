@@ -593,8 +593,9 @@ if block_av:
     # estimate error of deltaF
     # removed original calculation on averaged FES
     deltaF=np.average(blocks_fesses,axis=0,weights=safe_block_weight)
-    # not convinced here we are missing a blocks_neff multiplicative term
-    sigma_deltaF=np.sqrt(np.sum((deltaF-blocks_fesses)**2,axis=0,weights=safe_block_weight)/(blocks_neff-1))
+    # NOTE: here we are dropping a term sqrt(N_blocks) because we are not convinced that the statistics is correct, and makes the error too small
+    # sigma_deltaF=np.sqrt(np.average((deltaF-blocks_fesses)**2,axis=0,weights=safe_block_weight)/(blocks_neff-1))
+    sigma_deltaF=np.sqrt(np.dot((deltaF-blocks_fesses)**2, safe_block_weight)/(blocks_neff-1))
     ### - ADDITION
 # actual printing
   with open(outfile,'w') as f:
